@@ -1,0 +1,84 @@
+00:00:00.001262 main     VirtualBox COM Server 6.1.18 r142142 win.amd64 (Jan  7 2021 15:32:19) release log
+00:00:00.001270 main     Log opened 2021-03-25T23:57:32.938310300Z
+00:00:00.001272 main     Build Type: release
+00:00:00.001281 main     OS Product: Windows 10
+00:00:00.001283 main     OS Release: 10.0.18363
+00:00:00.001285 main     OS Service Pack: 
+00:00:00.027216 main     DMI Product Name: HP Z230 SFF Workstation
+00:00:00.036734 main     DMI Product Version: 
+00:00:00.036744 main     Firmware type: UEFI
+00:00:00.036987 main     Secure Boot: VERR_PRIVILEGE_NOT_HELD
+00:00:00.037003 main     Host RAM: 32520MB (31.7GB) total, 28022MB (27.3GB) available
+00:00:00.037007 main     Executable: C:\Program Files\Oracle\VirtualBox\VBoxSVC.exe
+00:00:00.037008 main     Process ID: 2652
+00:00:00.037009 main     Package type: WINDOWS_64BITS_GENERIC
+00:00:00.338854          VirtualBox: object creation starts
+00:00:00.339452          Home directory: 'C:\Users\kopo21\.VirtualBox'
+00:00:00.339745          Installed Drivers:
+00:00:00.365083            C:\WINDOWS\system32\DRIVERS\VBoxDrv.sys (Version: 6.1.18.42142)
+00:00:00.366948            C:\WINDOWS\system32\DRIVERS\VBoxUSBMon.sys (Version: 6.1.18.42142)
+00:00:00.369104            C:\WINDOWS\system32\DRIVERS\VBoxNetAdp6.sys (Version: 6.1.18.42142)
+00:00:00.371105            C:\WINDOWS\system32\DRIVERS\VBoxNetLwf.sys (Version: 6.1.18.42142)
+00:00:00.375832          Loading settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+00:00:00.382323          usbLibGetDevices: Starting USB device enumeration
+00:00:00.513344          Getting USB descriptor (id 0) failed (dwErr=31) on hub USB#ROOT_HUB30#4&2109f25b&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8} port 18
+00:00:00.517736          usbLibGetDevices: Found 3 USB devices, 0 captured
+00:00:00.517886          USB: Unknown USB device detected (idVendor: 0x0bda, idProduct: 0x0321)
+00:00:01.616185          HostDnsMonitor: initializing
+00:00:01.623974          HostDnsMonitor: updating information
+00:00:01.624007          HostDnsMonitor: old information
+00:00:01.624009            no server entries
+00:00:01.624010            no domain set
+00:00:01.624010            no search string entries
+00:00:01.624011          HostDnsMonitor: new information
+00:00:01.624011            server 1: 8.8.8.8
+00:00:01.624012            no domain set
+00:00:01.624012            no search string entries
+00:00:01.693585          VD: VDInit finished with VINF_SUCCESS
+00:00:01.694593          Loading settings file "C:\Users\kopo21\VirtualBox VMs\Ubuntu64bit\Ubuntu64bit.vbox" with version "1.16-windows"
+00:00:01.701668          Loading settings file "C:\Users\kopo21\VirtualBox VMs\kopo21p\kopo21p.vbox" with version "1.16-windows"
+00:00:01.707506          Loading settings file "C:\Users\kopo21\VirtualBox VMs\kopo21p 복제\kopo21p 복제.vbox" with version "1.16-windows"
+00:00:01.713725          Loading settings file "C:\Users\kopo21\VirtualBox VMs\Ubuntu64bit 복제\Ubuntu64bit 복제.vbox" with version "1.16-windows"
+00:00:01.714559          VirtualBox: object created
+00:00:05.415237          Saving settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+00:00:05.670966          Saving settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+00:00:06.611708          Launched VM: 40042848 pid: 4260 (0x10a4) frontend: GUI/Qt name: Ubuntu64bit
+00:00:20.173467          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={70401eef-c8e9-466b-9660-45cb3e9979e4} aComponent={ExtPackManagerWrap} aText={No extension pack by the name 'Oracle VM VirtualBox Extension Pack' was found}, preserve=false aResultDetail=0
+00:00:23.695580          VM 'Ubuntu64bit' starts using NAT network 'NatNetwork'
+00:00:23.707911          HostDnsMonitorProxy::GetDomainName: no domain set
+00:00:23.710752          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={46735de7-f4c4-4020-a185-0d2881bcfa8b} aComponent={DHCPGlobalConfigWrap} aText={DHCP option 15 was not found}, preserve=false aResultDetail=0
+00:00:23.710875          HostDnsMonitorProxy::GetNameServers:
+00:00:23.710887            name server 1: 8.8.8.8
+00:00:23.747427          Saving settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+00:00:23.893762          Saving settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+00:00:24.193383          NetworkServiceRunning: started 'VBoxNetDHCP.exe', pid 000002f4
+00:00:24.422479          NetworkServiceRunning: started 'VBoxNetNAT.exe', pid 00000fdc
+00:00:24.422701          Started NAT network 'NatNetwork'
+00:00:27.635249          HostDnsMonitorProxy::GetNameServers:
+00:00:27.635266            name server 1: 8.8.8.8
+00:00:41.504809          Saving settings file "C:\Users\kopo21\VirtualBox VMs\Ubuntu64bit\Ubuntu64bit.vbox" with version "1.16-windows"
+05:15:34.795230          Launched VM: 40120096 pid: 14948 (0x3a64) frontend: GUI/Qt name: kopo21p
+05:15:38.826667          ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={70401eef-c8e9-466b-9660-45cb3e9979e4} aComponent={ExtPackManagerWrap} aText={No extension pack by the name 'Oracle VM VirtualBox Extension Pack' was found}, preserve=false aResultDetail=0
+05:15:45.643559          Saving settings file "C:\Users\kopo21\VirtualBox VMs\kopo21p\kopo21p.vbox" with version "1.16-windows"
+05:16:11.268524          Saving settings file "C:\Users\kopo21\VirtualBox VMs\kopo21p\kopo21p.vbox" with version "1.16-windows"
+05:16:11.310910          ERROR [COM]: aRC=VBOX_E_IPRT_ERROR (0x80bb0005) aIID={85632c68-b5bb-4316-a900-5eb28d3413df} aComponent={MachineWrap} aText={Saved screenshot thumbnail data is not available (VERR_NOT_SUPPORTED)}, preserve=false aResultDetail=-37
+05:16:11.336487          ERROR [COM]: aRC=VBOX_E_IPRT_ERROR (0x80bb0005) aIID={85632c68-b5bb-4316-a900-5eb28d3413df} aComponent={MachineWrap} aText={Saved screenshot thumbnail data is not available (VERR_NOT_SUPPORTED)}, preserve=false aResultDetail=-37
+05:16:11.411773 SaveState Saving settings file "C:\Users\kopo21\VirtualBox VMs\kopo21p\kopo21p.vbox" with version "1.16-windows"
+08:25:00.181035          Saving settings file "C:\Users\kopo21\VirtualBox VMs\Ubuntu64bit\Ubuntu64bit.vbox" with version "1.16-windows"
+08:25:00.299057 SaveState Saving settings file "C:\Users\kopo21\VirtualBox VMs\Ubuntu64bit\Ubuntu64bit.vbox" with version "1.16-windows"
+08:25:01.188310 Watcher  VM 'Ubuntu64bit' stops using NAT network 'NatNetwork'
+08:25:01.190920 Watcher  NetworkServiceRunning: killing VBoxNetDHCP.exe, pid 000002f4...
+08:25:01.214174 Watcher  NetworkServiceRunning: VBoxNetNAT.exe (pid 00000fdc) stopped: iStatus=0 enmReason=1
+08:25:01.214199 Watcher  Stopped NAT network 'NatNetwork'
+08:25:02.003891          Saving settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+08:25:02.066527          Saving settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+08:25:02.100750          Saving settings file "C:\Users\kopo21\.VirtualBox\VirtualBox.xml" with version "1.14-windows"
+08:25:07.627609 main     VirtualBox: object deletion starts
+08:25:07.627761 main     ERROR [COM]: aRC=VBOX_E_OBJECT_IN_USE (0x80bb000c) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Medium 'C:\Users\kopo21\VirtualBox VMs\Ubuntu64bit\Ubuntu64bit.vdi' cannot be closed because it is still attached to 1 virtual machines}, preserve=false aResultDetail=0
+08:25:07.629088 main     ERROR [COM]: aRC=VBOX_E_OBJECT_IN_USE (0x80bb000c) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Medium 'C:\Users\kopo21\VirtualBox VMs\kopo21p\kopo21p.vdi' cannot be closed because it is still attached to 1 virtual machines}, preserve=false aResultDetail=0
+08:25:07.630111 main     ERROR [COM]: aRC=VBOX_E_OBJECT_IN_USE (0x80bb000c) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Medium 'C:\Users\kopo21\VirtualBox VMs\kopo21p 복제\kopo21p 복제.vdi' cannot be closed because it is still attached to 1 virtual machines}, preserve=false aResultDetail=0
+08:25:07.631216 main     ERROR [COM]: aRC=VBOX_E_OBJECT_IN_USE (0x80bb000c) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Medium 'C:\Users\kopo21\VirtualBox VMs\Ubuntu64bit 복제\Ubuntu64bit 복제.vdi' cannot be closed because it is still attached to 1 virtual machines}, preserve=false aResultDetail=0
+08:25:07.633618 main     HostDnsMonitor: shutting down ...
+08:25:07.633834 main     HostDnsMonitor: shut down
+08:25:07.642811 Watcher  ERROR [COM]: aRC=E_ACCESSDENIED (0x80070005) aIID={d0a0163f-e254-4e5b-a1f2-011cf991c38d} aComponent={VirtualBoxWrap} aText={The object is not ready}, preserve=false aResultDetail=0
+08:25:07.643646 main     VirtualBox: object deleted

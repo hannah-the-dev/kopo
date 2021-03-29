@@ -1,0 +1,22 @@
+00:00:00.361406 VirtualBox DHCP Server 6.1.18 r142142 win.amd64 (Jan  7 2021 15:31:43) release log
+00:00:00.361409 Log opened 2021-03-25T23:57:59.357253300Z
+00:00:00.361410 Build Type: release
+00:00:00.361412 OS Product: Windows 10
+00:00:00.361413 OS Release: 10.0.18363
+00:00:00.361413 OS Service Pack: 
+00:00:00.673362 DMI Product Name: HP Z230 SFF Workstation
+00:00:00.687259 DMI Product Version: 
+00:00:00.687272 Firmware type: UEFI
+00:00:00.687739 Secure Boot: VERR_PRIVILEGE_NOT_HELD
+00:00:00.687757 Host RAM: 32520MB (31.7GB) total, 27504MB (26.8GB) available
+00:00:00.687761 Executable: C:\Program Files\Oracle\VirtualBox\VBoxNetDHCP.exe
+00:00:00.687761 Process ID: 8624
+00:00:00.687762 Package type: WINDOWS_64BITS_GENERIC
+00:00:00.719585 --config:  NatNetwork
+00:00:00.719610 --comment: NatNetwork
+00:00:01.022639 IP address:   10.0.2.3/24
+00:00:01.022655 Address pool: 10.0.2.4 - 10.0.2.254
+00:00:01.022794 MAC address is not specified: will use generated MAC 08:00:27:92:d8:81
+00:00:01.022823 Db::i_enterFixedAddressAssignment: 08:00:27:92:d8:81: 10.0.2.3
+00:00:01.022852 loading leases from C:\Users\kopo21\.VirtualBox\NatNetwork-Dhcpd.leases
+00:00:01.030827 > LOAD: EXPIRED lease 10.0.2.4 to [ff:e2:34:3f:3e:00:02:00:00:ab:11:06:34:5b:ff:bd:c5:a3:e7] (08:00:27:3d:2c:e9), expired, valid from 2021-03-22T02:30:32Z for 600s until 2021-03-22T02:40:32Z

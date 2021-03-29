@@ -1,0 +1,26 @@
+00:00:01.342029 VirtualBox NAT Network 6.1.18 r142142 win.amd64 (Jan  7 2021 15:32:19) release log
+00:00:01.342031 Log opened 2021-03-25T23:58:00.371650000Z
+00:00:01.342032 Build Type: release
+00:00:01.342034 OS Product: Windows 10
+00:00:01.342035 OS Release: 10.0.18363
+00:00:01.342035 OS Service Pack: 
+00:00:01.437079 DMI Product Name: HP Z230 SFF Workstation
+00:00:01.440700 DMI Product Version: 
+00:00:01.440720 Firmware type: UEFI
+00:00:01.441102 Secure Boot: VERR_PRIVILEGE_NOT_HELD
+00:00:01.441117 Host RAM: 32520MB (31.7GB) total, 27488MB (26.8GB) available
+00:00:01.441120 Executable: C:\Program Files\Oracle\VirtualBox\VBoxNetNAT.exe
+00:00:01.441121 Process ID: 11844
+00:00:01.441122 Package type: WINDOWS_64BITS_GENERIC
+00:00:01.639428 SUP: Opened VMMR0.r0 (C:\Program Files\Oracle\VirtualBox\VMMR0.r0) at 0xXXXXXXXXXXXXXXXX loaded by the native ring-0 loader.
+00:00:01.639446 SUP: windbg> .reload /f C:\Program Files\Oracle\VirtualBox\VMMR0.r0=0xXXXXXXXXXXXXXXXX
+00:00:01.642174 netif NT0: mac 52:54:00:12:35:00
+00:00:01.642185 netif NT0: inet 10.0.2.1 netmask 255.255.255.0
+00:00:01.828150 Loading IPv4 port-forwarding rule "Rule 1": TCP :80 -> 10.0.2.15:80
+00:00:01.828319 Loading IPv4 port-forwarding rule "Rule 2": TCP :8000 -> 10.0.2.16:80
+00:00:01.828365 Loading IPv4 port-forwarding rule "Rule 3": TCP :8080 -> 10.0.2.15:8080
+00:00:01.828395 Loading IPv4 port-forwarding rule "Rule 4": TCP :8081 -> 10.0.2.16:8083
+00:00:01.828424 Loading IPv4 port-forwarding rule "docker_apache2": TCP :8001 -> 10.0.2.15:81
+00:00:01.828451 Loading IPv4 port-forwarding rule "docker_tomcat": TCP :8083 -> 10.0.2.15:8081
+00:00:01.828479 Loading IPv4 port-forwarding rule "ubuntu1_ssh": TCP :2222 -> 10.0.2.16:22
+00:00:01.828511 Loading IPv4 port-forwarding rule "ubuntu_ssh": TCP :22 -> 10.0.2.15:22
