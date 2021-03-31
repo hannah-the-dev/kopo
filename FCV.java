@@ -27,4 +27,15 @@ public class FCV {		//FxConstantValues
 	public final static String[] USD_BILLS = {"100", "50", "20", "10", "5", "1"};
 	public final static String[] EUR_BILLS = {"500", "200", "100", "50", "20", "10"};
 	public final static String[] JPY_BILLS = {"10000", "5000", "2000", "1000"};
+	
+	public static Map<String, Double> BALANCES = new HashMap<String, Double>();
+	static{{
+		BALANCES.put("USD", 500.0);
+		BALANCES.put("EUR", 500.0);
+		BALANCES.put("JPY", 500.0);
+	}};
+	
+	
+	public static double BALANCE_TEMP = 0.0;
+
 }
