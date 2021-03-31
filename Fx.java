@@ -124,8 +124,8 @@ class CalculFx {
 			
 		return true;
 		}
-		
 	}
+	
 	boolean checkBalance(double toCurrency, String currency_key) {
 		FCV.BALANCE_TEMP = FCV.BALANCES.get(currency_key) - toCurrency;	
 		PrintingFx prt = new PrintingFx();
