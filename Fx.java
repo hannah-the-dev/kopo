@@ -14,9 +14,10 @@ public class Fx {
 			Menu menu = new Menu();
 			num = menu.selectMenu();
 			if (num == 0) {
+				System.out.println("System Terminated.");
 				break;
 			}
-			else if (num != 1 || num != 2 || num != 3) {
+			else if (num != 1 && num != 2 && num != 3) {
 				System.out.println("Wrong menu ID.");
 				break;
 			}
@@ -25,11 +26,12 @@ public class Fx {
 		}
 	}
 }
+
 class Menu {
 	int selectMenu() {
 		int num = 0;
 		System.out.println("Choose Currency :");
-		System.out.println("1. USD\n2. EUR\n3. JPY");
+		System.out.println("1. USD\n2. EUR\n3. JPY\n0. Exit");
 		Scanner sc = new Scanner(System.in);
 		num = sc.nextInt();
 		return num;
@@ -37,15 +39,6 @@ class Menu {
 }
 
 class Exchanges {
-	final static double W2Dfx = 1134.30;
-	final static double W2Efx = 1333.09;
-	final static double W2Yfx = 10.30;
-	final static String[] currency = {"USD", "EUR", "JPY"};
-	final static String[] wonBills = {"1000", "500", "100", "50", "10"};
-	final static String[] dolBills = {"100", "50", "20", "10", "5", "1"};
-	final static String[] eurBills = {"500", "200", "100", "50", "20", "10"};
-	final static String[] jpyBills = {"10000", "5000", "2000", "1000"};
-	
 	void exchange(int num) {
 		// get input won amount
 		System.out.print("Korean Won: ");
@@ -59,84 +52,71 @@ class Exchanges {
 	}
 		
 	void calculation(int won, int menu) {
-		double fx = 0.0;
 		List<String> bills = new ArrayList<String>();
+		String currency_key = "";
+		//deciding which currency and bills to use
 		switch (menu) {
-		case 1:
-			fx = W2Dfx;
-			bills = Arrays.asList(dolBills);
+		case FCV.MENU_USD:
+			currency_key = "USD";
+			bills = Arrays.asList(FCV.USD_BILLS);
 			break;
-		case 2:
-			fx = W2Efx;
-			bills = Arrays.asList(eurBills);
+		case FCV.MENU_EUR:
+			currency_key = "EUR";
+			bills = Arrays.asList(FCV.EUR_BILLS);
 			break;
-		case 3:
-			fx = W2Yfx;
-			bills = Arrays.asList(jpyBills);
+		case FCV.MENU_JPY:
+			currency_key = "JPY";
+			bills = Arrays.asList(FCV.JPY_BILLS);
 			break;
 		default:
 			break;
 		}
+		double fx = FCV.RATES.get(currency_key);		//set the fx rate
 		
-		//for bankers use
+// === exchange calculation parts starts here ===
+		// calculate amounts to return
 		double toCurrency = Math.floor(won / fx);  // amount in destination currency
-//		long wonc = (Math.round((dollar - dollarc) * fx)/10) * 10 ; // or
-		int change = (int)(Math.floor((won - (toCurrency * fx))/10) * 10); 	// amount of change in won
-		String cur = currency[menu-1];
-		System.out.printf("In %s: %.0f dollars\nChange: %d\nfx rate: %.2f\n\n", cur, toCurrency, change, fx);
+		int change = (int)(Math.floor((won - (toCurrency * fx))/FCV.MIN_KOR) * FCV.MIN_KOR); 	// amount of change in won
 	
-		System.out.println(1);
-		double amountTemp = toCurrency;					//to deduct
-		long wonTemp = change;
+		// calculate which bills and how many  
 		Map<String, Integer> changeDolBills = new HashMap<String, Integer>(); 
 			for (int i = 0; i < bills.size(); i++) {
 				changeDolBills.put(bills.get(i), 0);
 			}
 		Map<String, Integer> changeWonBills = new HashMap<String, Integer>() {{ 
-			for (int i = 0; i < wonBills.length; i++) {
-				put(wonBills[i], 0);
+			for (int i = 0; i < FCV.WON_BILLS.length; i++) {
+				put(FCV.WON_BILLS[i], 0);
 			}
 		}};
-		
-		//cal dollar bills
-		for (String x: bills) {
+
+		//cal dollar bills quantities
+		double amountTemp = toCurrency;					//to deduct from foreign currency
+		for (String x: bills) {							//calculate quantity of each bills to return 
 			int temp = (int)(amountTemp / Integer.parseInt(x));
 			changeDolBills.put(x, temp);
 			amountTemp -= temp * Integer.parseInt(x);
 		}
-		System.out.println(2);
-		//sort by keys, destination currency
-		List<Integer> desKeyInt = new ArrayList<>() {{
-			for (String x: changeDolBills.keySet()) {
-				add(Integer.parseInt(x));
-			}
-		}};
-		desKeyInt.sort(Integer::compareTo);
-		System.out.println(3);
 		
-		for (Integer x: desKeyInt) {
-			System.out.println(x +": "+ changeDolBills.get(x+""));
-		}
-		System.out.println();
-		
-		//cal won bills
+		//cal won bills quantities
+		long wonTemp = change;							//to deduct from change
 		while (wonTemp > 0) {
-			for (String x: wonBills) {
+			for (String x: FCV.WON_BILLS) {
 				Integer temp = (int)(wonTemp / Integer.parseInt(x));
 				changeWonBills.put(x, temp);
 				wonTemp -= temp * Integer.parseInt(x);
 			}
 		}
-		//sort by keys, won
-		List<Integer> wonKeyInt = new ArrayList<>() {{
-			for (String x: changeWonBills.keySet()) {
-				add(Integer.parseInt(x));
-			}
-		}};
-		wonKeyInt.sort(Integer::compareTo);
-		for (Integer x: wonKeyInt) {
-			System.out.println(x +": "+ changeWonBills.get(x+""));
-		}	
+// === printing parts starts here ===
+		System.out.printf("In %s: %.0f %s\nChange: %d\nFx rate: %.2f\n\n", 
+				currency_key, toCurrency, FCV.CURRENCY.get(currency_key), change, fx);
+		
+		for (String x: FCV.USD_BILLS) {
+			System.out.printf("%s %s: %d\n\n", x, FCV.CURRENCY.get(currency_key), changeDolBills.get(x));
+		}
+
+		for (String x: FCV.WON_BILLS) {
+			System.out.printf("%s %s: %d\n\n", x, FCV.CURRENCY.get("KRW"), changeWonBills.get(x));
+		}
 		System.out.println();
 	}
 }
