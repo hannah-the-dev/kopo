@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -14,16 +17,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.opencsv.CSVWriter;
 
+
 //APACHE common math => statistics
 
 public class NaverMovie {
 
-	private WebDriver driver;
-	private WebElement element;
+	WebDriver driver;
+	WebElement element;
 	
 	public static final String WEB_DRRIVER_ID = "webdriver.chrome.driver";
 	public static final String WEB_DRRIVER_PATH = "C:/Users/kopo21/Downloads/Selenium/chromedriver_win32/chromedriver.exe";
-	public static final String FILE_PATH = "C:\\Users\\kopo21\\Desktop\\movieRanking.csv";
+	public static final String FILE_PATH = "C:/Users/kopo21/Desktop/movieRanking.csv";
+
 	private static Map<String, String> listings = new LinkedHashMap<String, String>(); 	// save movie id and title
 	
 	private String rank_url;
@@ -40,13 +45,12 @@ public class NaverMovie {
 		start_url = "https://movie.naver.com/movie/bi/mi/basic.nhn?code=";
 	}
 	
-	public void getIDs() {
-		String pageID = "";
-		String title = "";
+	public void getIDs() throws IOException {
 		
-		for(int p = 1; p < 2; p++) { 		// p == page # (1~20)
+		for(int p = 1; p < 4; p++) { 		// p == page # (1~20)
 			try {
 				//get page
+				System.out.println(rank_url+p);
 				driver.get(rank_url+p);
 	//				System.out.println(driver.getPageSource());
 	//				driver.getPageSource();
@@ -60,10 +64,12 @@ public class NaverMovie {
 				//finds id and title
 				for (int i = 1; i < 56; i++) {			// rank from 1 to 2000 (50 per page), 5 separators
 					try {
+//						String pageID = "";
+//						String title = "";
 						element = driver.findElement(By.xpath("//*[@id=\"old_content\"]/table/tbody/tr["+(i)+"]/td[2]/div/a"));
-						title = element.getText();
+						String title = element.getText();
 	//					System.out.println(i+" "+name);
-						pageID = element.getAttribute("href").split("code=")[1];
+						String pageID = element.getAttribute("href").split("code=")[1];
 						System.out.println(pageID);
 						listings.put(pageID, title);			//saving page code and title
 					} catch (NoSuchElementException e) {
@@ -78,9 +84,10 @@ public class NaverMovie {
 				continue;
 			} finally {
 	//			System.out.println(listings.toString());
-				driver.close();
 			}
+			getInfo(listings);
 		}
+
 	}
 	
 	public void getInfo(Map<String, String> listings) throws IOException {
@@ -101,13 +108,18 @@ public class NaverMovie {
 		String ratingU = "";
 		
 
-//		File file = new File("C:/Users/kopo21/Desktop/movieRanking.csv");
-//		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-//		String NEWLINE = System.lineSeparator();
-//		bw.newLine();
-		CSVWriter writer = new CSVWriter(new FileWriter(FILE_PATH, true));
+		File file = new File("C:/Users/kopo21/Desktop/movieRanking.csv");
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		CSVWriter writer = new CSVWriter(new OutputStreamWriter(new FileOutputStream(FILE_PATH, true), "EUC-KR"));
+		
 		String[] title = "ID,Title,Payer Score,Prof. Socre,User Socre,Genre,Nation,Running time,Year,Date,Director,Stared,Rate_Ko,Rate_USA".split(",");
-		writer.writeNext("ID,Title,Payer Score,Prof. Socre,User Socre,Genre,Nation,Running time,Year,Date,Director,Stared,Rate_Ko,Rate_USA".split(","));
+		writer.writeNext(title);
 //		writeTitle(title);
 		
 		for (String id: listings.keySet()) {
@@ -144,8 +156,8 @@ public class NaverMovie {
 				ratingK = info.select("dd:nth-child(8) > p > a:nth-child(1)").text();
 				ratingU = info.select("dd:nth-child(8) > p > a:nth-child(2)").text();
 				
-				tempListStr = id+","+listings.get(id)+","+users+","+writers+","+netizens+","+genre+","+nation+","+running+","+year+","+date+","+director+","+actors+","+ratingK+","+ratingU;
-				tempList = tempListStr.split(",");
+				tempListStr = id+"#"+listings.get(id)+"#"+users+"#"+writers+"#"+netizens+"#"+genre+"#"+nation+"#"+running+"#"+year+"#"+date+"#"+director+"#"+actors+"#"+ratingK+"#"+ratingU;
+				tempList = tempListStr.split("#");
 				writer.writeNext(tempList);
 //				writeCSV(tempList);
 				
@@ -169,5 +181,6 @@ public class NaverMovie {
 		// TODO Auto-generated method stub
 		NaverMovie movie = new NaverMovie();
 		movie.getIDs();
+//		driver.close();
 	}
 }
