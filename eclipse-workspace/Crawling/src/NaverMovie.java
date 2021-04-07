@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,7 +21,7 @@ import com.opencsv.CSVWriter;
 
 //APACHE common math => statistics
 
-public class NaverMovie {
+public class NaverMovie extends java.lang.Object {
 
 	WebDriver driver;
 	WebElement element;
@@ -28,8 +29,9 @@ public class NaverMovie {
 	public static final String WEB_DRRIVER_ID = "webdriver.chrome.driver";
 	public static final String WEB_DRRIVER_PATH = "C:/Users/kopo21/Downloads/Selenium/chromedriver_win32/chromedriver.exe";
 	public static final String FILE_PATH = "C:/Users/kopo21/Desktop/movieRanking.csv";
-
-	private static Map<String, String> listings = new LinkedHashMap<String, String>(); 	// save movie id and title
+	public final String[] TITLE = "ID,Title,User Scores,Specialist Socres,Genre,Nation,Year,Date,Director,Stared,Rate_Ko,Rate_USA".split(",");
+	
+	private static Map<String, String> LISTINGS = new LinkedHashMap<String, String>(); 	// save movie id and title
 	
 	private String rank_url;
 	private String start_url;
@@ -45,19 +47,23 @@ public class NaverMovie {
 		start_url = "https://movie.naver.com/movie/bi/mi/basic.nhn?code=";
 	}
 	
-	public void getIDs() throws IOException {
+	public void getTitle() throws IOException {	
+
+		File file = new File("C:/Users/kopo21/Desktop/movieRanking.csv");
+		if (!file.exists()) {
+				file.createNewFile();
+		}
+		writeTitle(TITLE);
+	}
+	
+//	public Map<String, String> getIDs(int n) throws IOException {
+	public void getIDs(int times) throws IOException {
 		
-		for(int p = 1; p < 4; p++) { 		// p == page # (1~20)
+		for(int p = 1; p < times+1; p++) { 		// repeats n times p == page # (1~20)
 			try {
 				//get page
 				System.out.println(rank_url+p);
 				driver.get(rank_url+p);
-	//				System.out.println(driver.getPageSource());
-	//				driver.getPageSource();
-				
-	//				WebDriverWait wait = new WebDriverWait(driver, 5);
-	//				
-	//				wait.until();
 					
 				Thread.sleep(3000);
 	
@@ -71,13 +77,10 @@ public class NaverMovie {
 	//					System.out.println(i+" "+name);
 						String pageID = element.getAttribute("href").split("code=")[1];
 						System.out.println(pageID);
-						listings.put(pageID, title);			//saving page code and title
+						LISTINGS.put(pageID, title);			//saving page code and title
 					} catch (NoSuchElementException e) {
-						
 					} 
 				}
-				
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 				p--;			// if error, try the same page again;
@@ -85,102 +88,97 @@ public class NaverMovie {
 			} finally {
 	//			System.out.println(listings.toString());
 			}
-			getInfo(listings);
 		}
-
+		getInfo(LISTINGS);
+		driver.close();
+		System.out.println("Driver closed");
 	}
-	
+
 	public void getInfo(Map<String, String> listings) throws IOException {
 		String[] tempList = {};
 		String tempListStr = "";
-		
-		String users = "";
-		String writers = "";
-		String netizens = "";
-		String genre = "";
-		String nation = "";
-		String running = "";
-		String year = "";
-		String date = "";
-		String director = "";
-		String actors = "";
-		String ratingK = "";
-		String ratingU = "";
-		
-
-		File file = new File("C:/Users/kopo21/Desktop/movieRanking.csv");
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		CSVWriter writer = new CSVWriter(new OutputStreamWriter(new FileOutputStream(FILE_PATH, true), "EUC-KR"));
-		
-		String[] title = "ID,Title,Payer Score,Prof. Socre,User Socre,Genre,Nation,Running time,Year,Date,Director,Stared,Rate_Ko,Rate_USA".split(",");
-		writer.writeNext(title);
-//		writeTitle(title);
-		
+			
 		for (String id: listings.keySet()) {
+			String netscore = "";
+			String spcscore = "";
+			String genre = "";
+			String nation = "";
+//			String running = "";
+			String year = "";
+			String date = "";
+			String director = "";
+			String actors = "";
+			String ratingK = "";
+			String ratingU = "";
+			int counter = 0;
 			try {
 				Document page = Jsoup.connect(start_url+id).get();
 				// star-rated section
-				Elements stars = page.select("#container span > span");	
-				for (int i = 0; i < 3; i++) {
-					String tempStr;
-					String tempNum;
-					if (stars.get(i).attr("style") == "") tempNum = "0.0";
-					else {
-						tempStr = stars.get(i).attr("style").substring(6, stars.get(i).attr("style").length()-1);
-						tempNum = Math.round((Double.parseDouble(tempStr) * 100))/1000.0 + "";
-					}
-					switch(i) {
-					case 0: users = tempNum; break; 
-					case 1: writers = tempNum; break; 
-					case 2: netizens = tempNum; break; 
-					}
-				}
+//				Elements stars = page.select("#container span > span");	
+				netscore = page.select("div.netizen_score > div > div > em").text();
+				spcscore = page.select("div.special_score > div > div > em").text();
+				if (netscore.equals("0.00") || spcscore.equals("0.00")) continue;
 				
 				// film information section
 				Elements info = page.select("#content > div.article > div.mv_info_area > div.mv_info > dl");
 				Elements basic = info.select("dd:nth-child(2) > p > span");
-				genre = basic.first().text();
-				nation = basic.get(1).text();
+//				genre = StringUtils.substringBetween(Xsoup.compile("//*[@id=\"content\"]/div[1]/div[2]/div[1]/dl/dd[1]/p/span[1]/a")
+//						.evaluate(page).get(), ">", "</a");
+//				System.out.println(genre);
+//				genre = StringUtils.substringBetween(basic.select(".*genre").get(0).text(), "=", ">");
+				System.out.print(listings.get(id) + "\t");
+				genre = basic.outerHtml().contains("?genre") ? basic.select("a[href*=?genre]").get(0).text() : "";
+				nation = basic.outerHtml().contains("?nation") ? basic.select("a[href*=?nation]").get(0).text() : "";
 //				running = Integer.parseInt(basic.get(3).text());
-				running = basic.get(2).text();
-				year = basic.select("a").first().text();
-				date = basic.select("a").get(2).text();
-				director = info.select("dd:nth-child(4) > p > a").text();
-				actors = info.select("dd:nth-child(6) > a").text();
-				ratingK = info.select("dd:nth-child(8) > p > a:nth-child(1)").text();
-				ratingU = info.select("dd:nth-child(8) > p > a:nth-child(2)").text();
+//				running = StringUtils.substringBetween(basic.outerHtml(), "N=a:ifo.nation", "분 </span>").replace(" --> </span>\n<span>", "");
+//				System.out.println("run: "+ running);
+				year = basic.outerHtml().contains("?open") ? basic.select("a[href*=?open]").get(0).text() : "";
+				date = basic.outerHtml().contains("?open") ? basic.select("a[href*=?open]").get(1).text() : "";
+//				System.out.println("open: "+year + date);
 				
-				tempListStr = id+"#"+listings.get(id)+"#"+users+"#"+writers+"#"+netizens+"#"+genre+"#"+nation+"#"+running+"#"+year+"#"+date+"#"+director+"#"+actors+"#"+ratingK+"#"+ratingU;
+				director = (info.text().contains("감독") && info.text().contains("출연")) ? 
+						StringUtils.substringBetween(info.text(), "감독", "출연") : StringUtils.substringBetween(info.text(), "감독", "등급");
+				System.out.printf("director: "+director+ "\t");
+				actors = (info.text().contains("출연") && info.text().contains("등급")) ? 
+						StringUtils.substringBetween(info.text(), "출연", "등급").replace("더보기","") : "";
+				System.out.printf("actors" + actors + "\t");
+				ratingK = info.outerHtml().contains("?grade=1001") ? info.select("a[href*=?grade=1001]").get(0).text() : "";
+				System.out.printf("ratingK:" + ratingK + "\t");
+				ratingU = info.outerHtml().contains("?grade=1011") ? info.select("a[href*=?grade=1011]").get(0).text() : "";
+				System.out.println("ratingU: "+ratingU);
+				
+				tempListStr = id+"#"+listings.get(id)+"#"+netscore+"#"+spcscore+"#"+genre+"#"+nation+"#"+year+"#"+date+"#"+director+"#"+actors+"#"+ratingK+"#"+ratingU;
 				tempList = tempListStr.split("#");
-				writer.writeNext(tempList);
-//				writeCSV(tempList);
+				
+				writeCSV(tempList);
+				
+				counter++;
+				if (counter % 100 == 0)
+				Thread.sleep(1000*60*5);
 				
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			} 
 		}
-		writer.close();
 	}
-	void writeTitle(String[] tempList) throws IOException {
-		CSVWriter writer = new CSVWriter(new FileWriter(FILE_PATH));
-		writer.writeNext("ID,Title,Payer Score,Prof. Socre,User Socre,Genre,Nation,Running time,Year,Date,Director,Stared,Rate_Ko,Rate_USA".split(","));
+	void writeTitle(String[] title) throws IOException {
+		CSVWriter writer = new CSVWriter(new OutputStreamWriter(new FileOutputStream(FILE_PATH, true), "EUC-KR"));
+		writer.writeNext(title);
 		writer.close();
 	}
 	
 	void writeCSV(String[] tempList) throws IOException {
+		CSVWriter writer = new CSVWriter(new OutputStreamWriter(new FileOutputStream(FILE_PATH, true), "EUC-KR"));
+		writer.writeNext(tempList);
+		writer.close();
 	}
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		NaverMovie movie = new NaverMovie();
-		movie.getIDs();
+		movie.getTitle();			// makes file and write title
+		movie.getIDs(40);			// take ID and film title per page total 40 pages
 //		driver.close();
 	}
 }
