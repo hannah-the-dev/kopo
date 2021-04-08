@@ -152,6 +152,7 @@ public class NaverMovie extends java.lang.Object {
 			} 
 		}
 	}
+	
 	void writeTitle(String[] title) throws IOException {
 		CSVWriter writer = new CSVWriter(new OutputStreamWriter(new FileOutputStream(FILE_PATH, true), "UTF-8"));
 		writer.writeNext(title);
