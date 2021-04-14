@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class FCV {		//FxConstantValues 
 	//currency and rates 
-	public static final  Map<String, Double> RATES = new HashMap<String, Double>(); 
+	public static final  Map<String, Double> RATES = new HashMap<String, Double>();	 
 	static {{
 		RATES.put("USD", 1134.30);
 		RATES.put("EUR", 1333.09); 
@@ -35,7 +35,5 @@ public class FCV {		//FxConstantValues
 		BALANCES.put("JPY", 500.0);
 	}};
 	
-	
 	public static double BALANCE_TEMP = 0.0;
-
 }
