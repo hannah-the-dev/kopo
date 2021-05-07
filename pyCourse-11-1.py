@@ -38,3 +38,47 @@ s.variance(a) #분산
 #%%
 import statistics as s
 s.harmonic_mean([120,80])
+
+#%%
+import time as t
+a = t.time(); a   #현재시간
+t.ctime(a)  #초단위로 표시된 시간을 문자형식으로 표현
+t.ctime(0) #우리나라 기준으로 time=0의 경우 1970년1월1일 오전9시 정각
+
+a=t.localtime()
+a
+#tm_year: 년도; tm_mon: 월; tm_mday: 일; tm_hour: 시;
+#tm_min: 분; tm_sec: 초; tm_wday: 요일(0월요일,1화요일~7일요일);
+#tm_yday: 1/1부터 경과일; tm_isdst: 일광절약일(썸머타임 적용시, 적용x:0)
+print("%d년 %d월 %d일 %02d시 %02d분 %02d초"%(a.tm_year,a.tm_mon,a.tm_mday,a.tm_hour,a.tm_min,a.tm_sec))
+
+#%%
+import datetime as t
+a=t.datetime.now()
+print("%d년 %d월 %d일 %02d시 %02d분 %02d초"%(a.year,a.month,a.day,a.hour,a.minute,a.second))
+
+#%%
+import time as t
+
+start=t.time()
+for i in range(10000):
+    pass
+end=t.time()
+
+print("%f 초 동안 실행함"%(end-start))
+
+#%%
+for i in range(10):
+    print (t.ctime())
+    t.sleep(3)  #초단위
+
+
+import random as r
+import matplotlib.pyplot as plt
+
+score=[]
+for i in range(100):
+    score.append(r.randrange(0,100))
+
+plt.plot(score)
+plt.show()
