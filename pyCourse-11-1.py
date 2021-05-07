@@ -72,13 +72,40 @@ for i in range(10):
     print (t.ctime())
     t.sleep(3)  #초단위
 
-
+#%%
 import random as r
 import matplotlib.pyplot as plt
 
 score=[]
-for i in range(100):
-    score.append(r.randrange(0,100))
+for i in range(100):  #100번 반복
+    score.append(r.randrange(0,100)) # 0부터 100까지 랜덤수 발생
 
 plt.plot(score)
 plt.show()
+
+# %%
+import sys
+sys.version  #파이썬 버전 조회
+				    
+sys.platform #파이썬 설치 플랫폼
+				    
+sys.getwindowsversion() #설치된 윈도우의 버전
+
+#%%
+import os
+os.getcwd()
+os.system("calc") #계산기 실행
+os.system("IDLE") #IDLE실행,실행안됨 path가 다름, 1리턴
+os.system("python") #파이썬 실행 실행된 상태에서 기다림
+os.system("shutdown /f /t 100") #이 명령 수행전 모든 윈도우 프로그램을 정리할 것
+
+os.system("shutdown /a")
+
+#%%
+from urllib.request import urlopen
+
+with urlopen('http://www.kopo.ac.kr/') as response:
+    for line in response:
+        line = line.decode('utf-8')  # 한글 처리
+        if "폴리텍" in line:
+            print(line)
